@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>PawTech | Cat Adoption & Gadget Reservation</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+<style>
+/* ===== BACKGROUND CORAK untuk section merge ===== */
+#merge{
+  position:relative;
+  overflow:hidden;
+  background-color:#070b17;
+  background-image:
+    radial-gradient(circle at 12% 18%, rgba(236,72,153,.28), transparent 45%),
+    radial-gradient(circle at 88% 82%, rgba(20,184,166,.28), transparent 45%),
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120' viewBox='0 0 120 120'%3E%3Cg fill='%23ec4899' fill-opacity='.14' transform='rotate(-20 60 60)'%3E%3Cellipse cx='60' cy='70' rx='14' ry='11'/%3E%3Ccircle cx='44' cy='52' r='6'/%3E%3Ccircle cx='56' cy='44' r='6'/%3E%3Ccircle cx='68' cy='44' r='6'/%3E%3Ccircle cx='80' cy='52' r='6'/%3E%3C/g%3E%3C/svg%3E"),
+    radial-gradient(rgba(154,166,196,.22) 1.2px, transparent 1.2px);
+  background-size:auto, auto, 120px 120px, 22px 22px;
+  background-position:0 0, 0 0, 0 0, 0 0;
+}
+#merge .head h2{color:#fff}
+#merge .head p{color:#9aa6c4}
+#merge .container{position:relative;z-index:1}
+
+/* ===== merge animation (no zoom: slide, 3D tilt, fade, glow, sparks) ===== */
+.mg{--mg-pink:#ec4899;--mg-teal:#14b8a6;--mg-panel:#121a30;--mg-line:#243050;--mg-muted:#9aa6c4;--T:11s;color:#e8ecf8}
+.mg:not(.run) *{animation-play-state:paused}
+.mg-stage{position:relative;max-width:1000px;margin:0 auto;padding:56px 16px 16px}
+.mg-grid{position:relative;z-index:1;display:grid;grid-template-columns:1fr 1fr;gap:90px;animation:mg-close var(--T) infinite,mg-shake var(--T) infinite}
+@keyframes mg-close{0%,36%{gap:90px}52%,96%{gap:0}97%,100%{gap:90px}}
+@keyframes mg-shake{0%,52%{translate:0 0}53%{translate:-7px 0}54%{translate:7px 0}55%{translate:-4px 0}56%{translate:3px 0}57%,100%{translate:0 0}}
+
+.mg-pane{--pc:236,72,153;background:var(--mg-panel);border:1px solid var(--mg-line);border-radius:14px;overflow:hidden;opacity:0;color:#e8ecf8}
+.mg-pane.mg-cat{border-top:3px solid var(--mg-pink);animation:mg-inL var(--T) infinite,mg-glowL var(--T) infinite}
+.mg-pane.mg-gad{--pc:20,184,166;border-top:3px solid var(--mg-teal);animation:mg-inR var(--T) infinite,mg-glowR var(--T) infinite}
+@keyframes mg-inL{0%,2%{opacity:0;transform:perspective(900px) translateX(-220px) rotateY(28deg);filter:blur(8px)}14%,92%{opacity:1;transform:none;filter:blur(0)}96%,100%{opacity:0;transform:none;filter:blur(0)}}
+@keyframes mg-inR{0%,2%{opacity:0;transform:perspective(900px) translateX(220px) rotateY(-28deg);filter:blur(8px)}14%,92%{opacity:1;transform:none;filter:blur(0)}96%,100%{opacity:0;transform:none;filter:blur(0)}}
+@keyframes mg-glowL{0%,38%{box-shadow:0 0 0 0 rgba(236,72,153,0)}50%{box-shadow:0 0 55px 8px rgba(236,72,153,.6)}60%,100%{box-shadow:0 0 0 0 rgba(236,72,153,0)}}
+@keyframes mg-glowR{0%,38%{box-shadow:0 0 0 0 rgba(20,184,166,0)}50%{box-shadow:0 0 55px 8px rgba(20,184,166,.6)}60%,100%{box-shadow:0 0 0 0 rgba(20,184,166,0)}}
+
+.mg-bar{display:flex;align-items:center;gap:6px;padding:9px 12px;border-bottom:1px solid var(--mg-line);font-size:.7rem;color:var(--mg-muted);animation:mg-barfade var(--T) infinite}
+@keyframes mg-barfade{0%,50%{opacity:1}58%,100%{opacity:0}}
+.mg-bar i{width:8px;height:8px;border-radius:50%;background:#33406a}
+.mg-bar span{margin-left:8px;background:#0b1020;border-radius:20px;padding:2px 12px;flex:1}
+.mg-site{padding:16px;display:grid;gap:12px}
+.mg-mnav{display:flex;justify-content:space-between;font-size:.72rem;font-weight:600;color:#e8ecf8}
+.mg-mnav em{font-style:normal;color:var(--mg-muted);font-weight:400}
+.mg-site h3{font-size:1.15rem;line-height:1.25;color:#fff}
+.mg-site p{font-size:.75rem;color:var(--mg-muted)}
+.mg-tiles{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+.mg-t{background:#0b1020;border:1px solid var(--mg-line);border-radius:10px;text-align:center;color:#e8ecf8;padding:6px;font-size:1.6rem}
+.mg-t:nth-child(1){animation:mg-bob 3s ease-in-out infinite,mg-tin1 var(--T) infinite}
+.mg-t:nth-child(2){animation:mg-bob 3s ease-in-out .4s infinite,mg-tin2 var(--T) infinite}
+.mg-t:nth-child(3){animation:mg-bob 3s ease-in-out .8s infinite,mg-tin3 var(--T) infinite}
+@keyframes mg-bob{50%{transform:translateY(-5px)}}
+@keyframes mg-tin1{0%,12%{opacity:0;translate:0 26px}22%,92%{opacity:1;translate:0 0}96%,100%{opacity:0;translate:0 0}}
+@keyframes mg-tin2{0%,16%{opacity:0;translate:0 26px}26%,92%{opacity:1;translate:0 0}96%,100%{opacity:0;translate:0 0}}
+@keyframes mg-tin3{0%,20%{opacity:0;translate:0 26px}30%,92%{opacity:1;translate:0 0}96%,100%{opacity:0;translate:0 0}}
+.mg-t img{width:100%;height:84px;object-fit:cover;border-radius:8px;display:block;margin-bottom:4px}
+.mg-t .mg-em{display:grid;place-items:center;height:84px;font-size:2rem}
+.mg-t small{display:block;font-size:.62rem;color:var(--mg-muted)}
+.mg-tag{display:inline-block;font-size:.58rem;border-radius:10px;padding:1px 7px;margin-top:2px}
+.mg-cat .mg-tag{background:rgba(236,72,153,.2);color:#f9a8d4}.mg-gad .mg-tag{background:rgba(20,184,166,.2);color:#5eead4}
+.mg-pill{justify-self:center;margin-top:8px;border-radius:30px;padding:13px 34px;font-size:1rem;font-weight:700;color:#fff;animation:mg-pillp 1.8s ease-out infinite}
+@keyframes mg-pillp{0%{box-shadow:0 0 0 0 rgba(var(--pc),.6)}70%,100%{box-shadow:0 0 0 12px rgba(var(--pc),0)}}
+.mg-pill{text-decoration:none;cursor:pointer;display:inline-block;transition:filter .2s}
+.mg-pill:hover{filter:brightness(1.15)}
+.mg-cat .mg-pill{background:var(--mg-pink)}.mg-gad .mg-pill{background:var(--mg-teal)}
+.mg-days{display:flex;gap:5px}.mg-days span{flex:1;text-align:center;font-size:.64rem;padding:5px 0;border-radius:7px;background:#0b1020;border:1px solid var(--mg-line);color:#e8ecf8}
+.mg-days .on{background:var(--mg-teal);border-color:var(--mg-teal);font-weight:700;color:#fff}
+
+/* frame */
+.mg-frame{position:absolute;inset:0;border:1px solid #3d4d80;border-radius:20px;background:rgba(15,23,48,.94);pointer-events:none;color:#e8ecf8;opacity:0;animation:mg-frame var(--T) infinite,mg-pulse 2.4s ease-in-out infinite alternate}
+@keyframes mg-frame{0%,52%{opacity:0}60%,90%{opacity:1}95%,100%{opacity:0}}
+@keyframes mg-pulse{from{box-shadow:0 0 40px -10px rgba(236,72,153,.4),0 0 40px -10px rgba(20,184,166,.4)}to{box-shadow:0 0 90px -4px rgba(236,72,153,.75),0 0 90px -4px rgba(20,184,166,.75)}}
+.mg-fnav{display:flex;justify-content:space-between;align-items:center;height:44px;padding:0 20px;border-bottom:1px solid var(--mg-line);font-size:.85rem;font-weight:600;color:#fff;animation:mg-fnav var(--T) infinite}
+.mg-fnav b{color:var(--mg-teal)}.mg-fnav span{color:var(--mg-muted);font-weight:500;font-size:.8rem}
+@keyframes mg-fnav{0%,52%{transform:translateY(-14px)}60%,100%{transform:none}}
+
+/* seam, flash, shine, sparks */
+.mg-seam{position:absolute;z-index:2;left:50%;top:56px;bottom:16px;width:3px;margin-left:-1.5px;border-radius:3px;opacity:0;pointer-events:none;
+ background:linear-gradient(var(--mg-pink),var(--mg-teal));box-shadow:0 0 30px 8px rgba(236,72,153,.55),0 0 30px 8px rgba(20,184,166,.45);animation:mg-seam var(--T) infinite}
+@keyframes mg-seam{0%,46%{opacity:0}52%{opacity:1}62%,100%{opacity:0}}
+.mg-flash{position:absolute;inset:0;z-index:4;border-radius:20px;opacity:0;pointer-events:none;
+ background:radial-gradient(ellipse at 50% 50%,rgba(255,255,255,.9),rgba(236,72,153,.35) 35%,rgba(20,184,166,.25) 55%,transparent 75%);animation:mg-flash var(--T) infinite}
+@keyframes mg-flash{0%,51%{opacity:0}53%{opacity:1}63%,100%{opacity:0}}
+.mg-shine{position:absolute;inset:0;z-index:3;border-radius:20px;opacity:0;pointer-events:none;
+ background:linear-gradient(105deg,transparent 35%,rgba(255,255,255,.24) 48%,rgba(255,255,255,.06) 53%,transparent 65%);background-size:300% 100%;background-position:130% 0;animation:mg-shine var(--T) infinite}
+@keyframes mg-shine{0%,60%{opacity:0;background-position:130% 0}62%{opacity:1;background-position:130% 0}78%{opacity:1;background-position:-30% 0}80%,100%{opacity:0;background-position:-30% 0}}
+.mg-sp{position:absolute;z-index:3;left:50%;top:50%;width:6px;height:6px;margin:-3px 0 0 -3px;border-radius:50%;opacity:0;pointer-events:none;background:var(--c);box-shadow:0 0 10px 2px var(--c);animation:mg-spark var(--T) infinite}
+@keyframes mg-spark{0%,51%{opacity:0;translate:0 0}53%{opacity:1}64%,100%{opacity:0;translate:var(--dx) var(--dy)}}
+
+/* floating paws & gadgets */
+.mg-fl{position:absolute;bottom:20px;font-size:1.3rem;opacity:0;pointer-events:none;animation:mg-float 7s linear infinite}
+@keyframes mg-float{0%{opacity:0;translate:0 0}15%{opacity:.55}85%{opacity:.4}100%{opacity:0;translate:0 -380px}}
+
+.mg-cap{position:relative;height:30px;text-align:center;margin:14px 0 4px;font-weight:600;font-size:1rem}
+.mg-cap span{position:absolute;inset:0;opacity:0}
+.mg-cap .mg-c1{animation:mg-c1 var(--T) infinite;color:#9aa6c4}
+@keyframes mg-c1{0%{opacity:0}8%,46%{opacity:1}52%,100%{opacity:0}}
+
+@media(max-width:760px){.mg-grid{grid-template-columns:1fr}@keyframes mg-close{0%,36%{gap:40px}52%,96%{gap:0}97%,100%{gap:40px}}.mg-seam,.mg-sp{display:none}}
+@media(prefers-reduced-motion:reduce){.mg *{animation:none!important}.mg-pane{opacity:1}}
+
+/* ===== SOCIAL ICONS (About Us) ===== */
+.social{display:flex;gap:12px;align-items:center;margin-top:32px}
+.person .slide .social{margin-top:32px}
+.social a{
+  display:inline-flex;align-items:center;justify-content:center;
+  width:40px;height:40px;padding:0;border-radius:50%;
+  background:rgba(255,255,255,.08);
+  border:1px solid rgba(255,255,255,.2);
+  color:#fff;
+  transition:transform .2s ease, background .2s ease, border-color .2s ease;
+}
+.social a svg{width:20px;height:20px;fill:currentColor}
+.social a:hover{transform:translateY(-3px)}
+.social a.ig:hover{background:#e1306c;border-color:#e1306c}
+.social a.tt:hover{background:#000;border-color:#25f4ee}
+</style>
+<script>function mgfb(i){var e=document.createElement("span");e.className="mg-em";e.textContent=i.dataset.e;i.replaceWith(e)}</script>
+</head>
+<body>
+
+<!-- NAVBAR -->
+<header class="nav" id="nav">
+  <div class="container nav-in">
+    <a href="#home" class="brand">🐾 Paw<b>Tech</b></a>
+    <nav class="menu" id="menu">
+      <a href="#home">Home</a>
+      <a href="#about">About Us</a>
+    </nav>
+    <button class="burger" id="burger" aria-label="Menu"><span></span><span></span><span></span></button>
+  </div>
+</header>
+
+<main>
+<!-- ================= HOME ================= -->
+<section class="hero" id="home">
+  <!-- VIDEO BACKGROUND: letak hero.mp4 dalam folder yang sama (atau tukar nama fail di sini) -->
+  <video class="hero-video" autoplay muted loop playsinline preload="auto">
+    <source src="cat_video.mp4" type="video/mp4">
+  </video>
+  <div class="hero-overlay"></div>
+  <div class="container hero-text reveal">
+    <h1>Where <span class="grad">paws</span> meet <span class="grad">tech.</span></h1>
+    <p>One platform for two services. Give a cat a loving home or book the gadget you need for your project.</p>
+    <div class="hero-cta">
+      <a href="#services" class="btn btn-primary">Get Started</a>
+      <a href="#merge" class="btn btn-ghost">Our Systems</a>
+    </div>
+  </div>
+</section>
+
+<!-- ================= ABOUT US ================= -->
+<section class="section alt" id="about">
+  <div class="container">
+    <div class="head reveal"><span class="eyebrow">About Us</span><h2>The team behind PawTech</h2><p>Hover or tap a photo to get to know us.</p></div>
+
+    <div class="grid-2">
+      <!-- KAU -->
+      <article class="person reveal" tabindex="0">
+        <div class="photo">
+          <img src="nurin.png" alt="Nurin Hadhirah binti Mohamad Khasni" onerror="this.style.display='none'">
+          <span class="ph"></span>
+          <span class="hint">Hover / tap to slide</span>
+        </div>
+        <div class="slide">
+          <small class="role cat-c">Cat Adoption System</small>
+          <h3>Nurin Hadhirah binti Mohamad Khasni</h3>
+          <p>Developer of the <b>Cat Adoption System</b>. Built the login, adopt a cat, found cat reports, my applications and the admin dashboard.</p>
+          <div class="social">
+            <a class="ig" href="https://www.instagram.com/hadhhh._/" target="_blank" rel="noopener" aria-label="Instagram" title="Instagram">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
+            </a>
+            <a class="tt" href="https://tiktok.com/@itshad._/" target="_blank" rel="noopener" aria-label="TikTok" title="TikTok">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12.525.02c1.31-.02 2.61-.01 3.91-.02.08 1.53.63 3.09 1.75 4.17 1.12 1.11 2.7 1.62 4.24 1.79v4.03c-1.44-.05-2.89-.35-4.2-.97-.57-.26-1.1-.59-1.62-.93-.01 2.92.01 5.84-.02 8.75-.08 1.4-.54 2.79-1.35 3.94-1.31 1.92-3.58 3.17-5.91 3.21-1.43.08-2.86-.31-4.08-1.03-2.02-1.19-3.44-3.37-3.65-5.71-.02-.5-.03-1-.01-1.49.18-1.9 1.12-3.72 2.58-4.96 1.66-1.44 3.98-2.13 6.15-1.72.02 1.48-.04 2.96-.04 4.44-.99-.32-2.15-.23-3.02.37-.63.41-1.11 1.04-1.36 1.75-.21.51-.15 1.07-.14 1.61.24 1.64 1.82 3.02 3.5 2.87 1.12-.01 2.19-.66 2.77-1.61.19-.33.4-.67.41-1.06.1-1.79.06-3.57.07-5.36.01-4.03-.01-8.05.02-12.07z"/></svg>
+            </a>
+          </div>
+        </div>
+      </article>
+
+      <!-- KAWAN -->
+      <article class="person reveal" tabindex="0">
+        <div class="photo">
+          <img src="sofea.png" alt="Nur Sofea Balqis binti Muhammad Riduan" onerror="this.style.display='none'">
+          <span class="ph"></span>
+          <span class="hint">Hover / tap to slide</span>
+        </div>
+        <div class="slide">
+          <small class="role gad-c">Gadget Reservation System</small>
+          <h3>Nur Sofea Balqis binti Muhammad Ridhuan</h3>
+          <p>Developer of the <b>Gadget Reservation System</b>. Built the gadget booking, availability checking and return tracking.</p>
+          <div class="social">
+            <a class="ig" href="https://www.instagram.com/sofeaqiss/" target="_blank" rel="noopener" aria-label="Instagram" title="Instagram">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
+            </a>
+            <a class="tt" href="https://www.tiktok.com/@nuqayl/" target="_blank" rel="noopener" aria-label="TikTok" title="TikTok">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12.525.02c1.31-.02 2.61-.01 3.91-.02.08 1.53.63 3.09 1.75 4.17 1.12 1.11 2.7 1.62 4.24 1.79v4.03c-1.44-.05-2.89-.35-4.2-.97-.57-.26-1.1-.59-1.62-.93-.01 2.92.01 5.84-.02 8.75-.08 1.4-.54 2.79-1.35 3.94-1.31 1.92-3.58 3.17-5.91 3.21-1.43.08-2.86-.31-4.08-1.03-2.02-1.19-3.44-3.37-3.65-5.71-.02-.5-.03-1-.01-1.49.18-1.9 1.12-3.72 2.58-4.96 1.66-1.44 3.98-2.13 6.15-1.72.02 1.48-.04 2.96-.04 4.44-.99-.32-2.15-.23-3.02.37-.63.41-1.11 1.04-1.36 1.75-.21.51-.15 1.07-.14 1.61.24 1.64 1.82 3.02 3.5 2.87 1.12-.01 2.19-.66 2.77-1.61.19-.33.4-.67.41-1.06.1-1.79.06-3.57.07-5.36.01-4.03-.01-8.05.02-12.07z"/></svg>
+            </a>
+          </div>
+        </div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="services">
+  <div class="container">
+    <div class="head reveal"><span class="eyebrow">Our Systems</span><h2>What do you need today?</h2></div>
+    <div class="grid-2">
+      <article class="svc reveal">
+        <div class="svc-ic">🐱</div>
+        <h3>Cat Adoption System</h3>
+        <p>Browse cats looking for a home, report found cats and track your adoption application.</p>
+      </article>
+      <article class="svc gad reveal">
+        <div class="svc-ic">💻</div>
+        <h3>Gadget Reservation System</h3>
+        <p>Check availability, pick your date and reserve the gadget you need.</p>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ================= MERGE ANIMATION (below Our Systems) ================= -->
+<section class="section alt" id="merge">
+  <div class="container">
+    <div class="head reveal"><span class="eyebrow">One Platform</span><h2>Two websites. One PawTech.</h2><p>Watch our Cat Adoption and Gadget Reservation websites come together.</p></div>
+    <div class="mg">
+<div class="mg-stage">
+ <span class="mg-fl" style="left:3%;animation-delay:0s">🐾</span>
+ <span class="mg-fl" style="left:95%;animation-delay:1.4s">💻</span>
+ <span class="mg-fl" style="left:10%;animation-delay:3s">🐾</span>
+ <span class="mg-fl" style="left:88%;animation-delay:4.4s">📷</span>
+ <span class="mg-fl" style="left:97%;animation-delay:5.6s">🐾</span>
+ <span class="mg-fl" style="left:5%;animation-delay:6s">🎧</span>
+ <div class="mg-frame"><div class="mg-fnav"><div>🐾 Paw<b>Tech</b></div><span>Home &nbsp;&nbsp; About Us</span></div></div>
+ <div class="mg-grid">
+  <section class="mg-pane mg-cat">
+   <div class="mg-bar"><i></i><i></i><i></i><span>Cat Adoption System</span></div>
+   <div class="mg-site">
+    <div class="mg-mnav"><span>😺 Cat Adoption</span><em>Adopt · Found · My Applications</em></div>
+    <h3>Give a cat a loving home</h3>
+    <p>Browse cats, report found cats and track your application.</p>
+    <div class="mg-tiles">
+     <div class="mg-t"><img src="mocha.png" alt="Mocha" style="object-position:35% 40%" data-e="🐱" onerror="mgfb(this)"><small>Mocha<br><span class="mg-tag">Available</span></small></div>
+     <div class="mg-t"><img src="oyen.png" alt="Oyen" style="object-position:50% 28%" data-e="🐈" onerror="mgfb(this)"><small>Oyen<br><span class="mg-tag">Available</span></small></div>
+     <div class="mg-t"><img src="abu.png" alt="Abu" style="object-position:45% 30%" data-e="🐈‍⬛" onerror="mgfb(this)"><small>Abu<br><span class="mg-tag">Pending</span></small></div>
+    </div>
+    <a href="https://catadoption.infinityfree.io/" class="mg-pill">Adopt a Cat</a>
+   </div>
+  </section>
+  <section class="mg-pane mg-gad">
+   <div class="mg-bar"><i></i><i></i><i></i><span>Gadget Reservation System</span></div>
+   <div class="mg-site">
+    <div class="mg-mnav"><span>💻 Gadget Reservation</span><em>Gadgets · Dates · Bookings</em></div>
+    <h3>Reserve the gadget you need</h3>
+    <p>Check availability, pick your date and book it.</p>
+    <div class="mg-tiles">
+     <div class="mg-t"><img src="laptop.png" alt="Laptop" style="object-position:50% 50%" data-e="💻" onerror="mgfb(this)"><small>Laptop<br><span class="mg-tag">Available</span></small></div>
+     <div class="mg-t"><img src="camera.png" alt="Camera" style="object-position:45% 50%" data-e="📷" onerror="mgfb(this)"><small>Camera<br><span class="mg-tag">Available</span></small></div>
+     <div class="mg-t"><img src="headset.png" alt="Headset" style="object-position:50% 45%" data-e="🎧" onerror="mgfb(this)"><small>Headset<br><span class="mg-tag">Booked</span></small></div>
+    </div>
+    <div class="mg-days"><span>Mon</span><span class="on">Tue</span><span class="on">Wed</span><span>Thu</span><span>Fri</span></div>
+    <a href="https://gadgetreserve.infinityfreeapp.com/login.php" class="mg-pill">Reserve a Gadget</a>
+   </div>
+  </section>
+ </div>
+ <div class="mg-seam"></div>
+ <div class="mg-flash"></div>
+ <div class="mg-shine"></div>
+ <i class="mg-sp" style="--c:#ec4899;--dx:-170px;--dy:-110px;top:30%"></i>
+ <i class="mg-sp" style="--c:#14b8a6;--dx:170px;--dy:-100px;top:32%"></i>
+ <i class="mg-sp" style="--c:#f9a8d4;--dx:-120px;--dy:-170px;top:40%"></i>
+ <i class="mg-sp" style="--c:#5eead4;--dx:130px;--dy:-160px;top:42%"></i>
+ <i class="mg-sp" style="--c:#ec4899;--dx:-190px;--dy:-20px;top:48%"></i>
+ <i class="mg-sp" style="--c:#14b8a6;--dx:190px;--dy:-10px;top:50%"></i>
+ <i class="mg-sp" style="--c:#f9a8d4;--dx:-160px;--dy:60px;top:56%"></i>
+ <i class="mg-sp" style="--c:#5eead4;--dx:160px;--dy:70px;top:58%"></i>
+ <i class="mg-sp" style="--c:#ec4899;--dx:-110px;--dy:150px;top:66%"></i>
+ <i class="mg-sp" style="--c:#14b8a6;--dx:120px;--dy:160px;top:68%"></i>
+ <i class="mg-sp" style="--c:#fff;--dx:-60px;--dy:-190px;top:38%"></i>
+ <i class="mg-sp" style="--c:#fff;--dx:70px;--dy:190px;top:62%"></i>
+</div>
+
+<div class="mg-cap"><span class="mg-c1">Two separate websites…</span></div>
+
+    </div>
+  </div>
+</section>
+<script>
+(function(){var m=document.querySelector('.mg');if(!m)return;
+if(!('IntersectionObserver' in window)){m.classList.add('run');return}
+new IntersectionObserver(function(es){es.forEach(function(e){m.classList.toggle('run',e.isIntersecting)})},{threshold:.25}).observe(m)})();
+</script>
+</main>
+
+<footer class="footer">
+  <div class="container foot-in" style="justify-content:center">
+    <a href="#home">Back to top ↑</a>
+  </div>
+</footer>
+
+<!-- MUSIC: letak background_music.mp3 dalam folder yang sama -->
+<audio id="bgm" src="background_music.mp3" loop preload="auto"></audio>
+<button class="music" id="musicBtn" aria-label="Toggle music" title="Music">♫</button>
+
+<script src="script.js"></script>
+<script src="music.js"></script>
+</body>
+</html>

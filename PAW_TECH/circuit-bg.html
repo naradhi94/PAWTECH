@@ -1,0 +1,53 @@
+<!-- =====================================================================
+  MERGE BACKGROUND FIX
+  Bahagian merge pakai background yang SAMA dengan section "Our Systems",
+  dan betulkan teks gelap dalam panel.
+
+  PENTING: kalau kau dah pasang global-bg.html atau circuit-bg.html, BUANG dulu
+  (tak perlu, dan akan bertindih).
+
+  CARA PASANG:
+  1. <style> -> dalam <head>, SELEPAS <link rel="stylesheet" href="style.css">
+  2. <script> -> sebelum </body> (selepas script.js)
+  ===================================================================== -->
+
+<style>
+/* fallback gelap kalau script tak sempat jalan */
+#merge{background-color:#080c1d!important}
+
+/* teks dah nampak atas background gelap */
+#merge .head h2{color:#fff}
+#merge .head p{color:#9aa6c4}
+#merge .eyebrow{color:#ec4899}
+#merge .mg{color:#eef2ff}
+#merge .mg-mnav span{color:#eef2ff}
+#merge .mg-site h3{color:#fff}
+#merge .mg-days span{color:#c3cdea}
+#merge .mg-days .on{color:#04201c}
+#merge .mg-pill{color:#fff}
+#merge .mg-gad .mg-pill{color:#04201c}
+#merge .mg-cap .mg-c1{color:#b4bfdc}
+#merge .mg-fnav{color:#fff}
+
+/* bingkai merge: tint gelap, bukan kelabu */
+#merge .mg-frame{background:rgba(10,16,34,.55)}
+</style>
+
+
+<script>
+/* salin background "Our Systems" ke bahagian merge supaya nampak sama */
+(function(){
+  var m=document.getElementById('merge'), s=document.getElementById('services');
+  if(!m||!s) return;
+  var cs=getComputedStyle(s);
+  function put(p,v){ if(v) m.style.setProperty(p,v,'important'); }
+  if(cs.backgroundImage && cs.backgroundImage!=='none'){
+    put('background-image',cs.backgroundImage);
+    put('background-size',cs.backgroundSize);
+    put('background-position',cs.backgroundPosition);
+    put('background-repeat',cs.backgroundRepeat);
+    put('background-color',cs.backgroundColor);
+  }
+  put('backdrop-filter','none');
+})();
+</script>
